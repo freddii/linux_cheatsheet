@@ -1,0 +1,6 @@
+get info about pdf:
+exiftool -a -G1 Sheet.pdf
+pdftk LaTeX_RefSheet.pdf cat 1 output Sheet.pdf
+convert  -background "#000000" -flatten -density 150 Sheet.pdf -quality 90  -negate Sheet.png
+
+pdfnup --nup 1x2 --no-landscape --outfile sheet_2auf1_no.pdf LaTeX_RefSheet.pdf

@@ -1,0 +1,975 @@
+% !TeX spellcheck = en_US
+%% Version 1.2, August 2017
+%% This Reference Sheet is free under the terms and conditions of the \LaTeX{} Project Public License Version 1.3c. 
+%% Authors: Marion Lammarsch, University of Heidelberg, and Elke Schubert, Stutensee
+
+\documentclass[fontsize=6pt,paper=a4,paper=landscape,twoside=false,parskip=half,
+headings=small,numbers=withenddot,usegeometry=true,english]{scrartcl}
+
+%added verbatim to be able to uncomment blocks
+\usepackage{verbatim}
+
+%added upqote to be able to view single quotes right
+\usepackage{upquote}
+
+%to be able to add code for download from pdf
+\usepackage{attachfile}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman,french,main=english]{babel}
+\selectlanguage{english}
+
+\usepackage{cmbright}
+\usepackage[scaled=.90]{beramono} 
+
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\arrayrulecolor{gray!60}
+\usepackage{geometry}
+\geometry{paper=a4paper,landscape, left=6mm,right=6mm, top=8mm,bottom=4mm}
+\pagestyle{empty}
+
+\usepackage{tabulary}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{pdfpages}
+\usepackage[autostyle=true]{csquotes}	
+\usepackage{amsmath,amssymb,nicefrac}
+\abovedisplayskip=1pt\belowdisplayskip=0pt\abovedisplayshortskip=0pt\belowdisplayshortskip=0pt
+\usepackage{enumitem,pifont,textcomp}
+\setlist{noitemsep,itemindent=0pt,leftmargin=1.4em,nosep}
+\setlist[itemize]{label*=\ding{223}}
+\setlength{\tabcolsep}{2pt}
+\usepackage[sticky-per=true,per-mode=fraction]{siunitx}
+
+% Bibliography (here for listings only)
+\usepackage[backend=biber,style=verbose]{biblatex}
+
+% Box
+\providecommand{\sectionbox}[1]{{\fboxsep0.5em\hspace*{-1.5\fboxsep}%
+ \fcolorbox{gray}{gray!3}{%
+ \parbox{\columnwidth}{%
+ \raggedright #1}}}}
+
+\setlength{\parskip}{1pt}
+\renewcommand{\arraystretch}{1.12}
+
+\setkomafont{disposition}{\color{violet}}
+\setkomafont{section}{\large}
+\setkomafont{subsection}{\normalsize}
+\setkomafont{subsubsection}{\normalsize}
+
+\renewcommand*{\thesection}{\Alph{section}}
+\RedeclareSectionCommand[beforeskip=-6pt, afterskip=3sp]{section}
+\RedeclareSectionCommand[beforeskip=-2pt, afterskip=3sp]{subsection}
+\RedeclareSectionCommand[beforeskip=-2pt, afterskip=3sp]{subsubsection}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+% Cprotect ======================
+\usepackage{cprotect}
+% make boxes robust for verbatim
+\let\oldsectionbox\sectionbox
+\outer\def\sectionbox{\icprotect\oldsectionbox}
+
+% Hyperref ======================
+\usepackage{hyperref}
+\renewcommand{\subsectionautorefname}{section}
+
+\definecolor{darkblue}{RGB}{0, 82, 147}		
+\hypersetup{
+	pdfcreator={LaTeX2e},
+	pdfborder=0 0 0,
+	breaklinks=true,
+	bookmarksopen=true,
+	bookmarksnumbered=true,
+	linkcolor=darkblue,
+	urlcolor=darkblue,
+	citecolor=darkblue,
+	colorlinks=true,
+	pdfauthor=Marion Lammarsch, 
+	pdftitle=LaTeX Cheat Sheet,
+	pdfcreator=LaTeX2e 
+}
+\urlstyle{sf}
+
+% Source Code Listings ============
+\usepackage{listings}
+\definecolor{listinggray}{gray}{0.95}
+\lstset{
+	backgroundcolor=\color{listinggray},
+	basicstyle=\ttfamily\small,
+	aboveskip={0.4\baselineskip},
+	belowskip={0.4\baselineskip},
+	literate={ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"u}}1 {ß}{{\ss}}1 {ô}{{\^o}}1	
+}
+
+\lstnewenvironment{mylatex} 
+{\lstset{%
+	backgroundcolor=\color{listinggray},
+	basicstyle=\ttfamily\small,
+	tabsize=2,
+	language={[LaTeX]TeX},
+	%upquote=true,
+	aboveskip={0.4\baselineskip},
+	belowskip={0.4\baselineskip},
+	abovecaptionskip={\baselineskip},
+	belowcaptionskip={0\baselineskip},
+	columns=fixed,
+	showstringspaces=false,
+	extendedchars=true,
+	linewidth=.96\linewidth,
+	xleftmargin=.04\linewidth,
+	frameround=fttt,
+	framexleftmargin={2pt},
+	framexrightmargin={2pt},
+	prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	frame=single,
+	showtabs=false,
+	showspaces=false,
+	showstringspaces=false,
+	identifierstyle=\ttfamily,
+	keywordstyle=\color{darkblue},
+	commentstyle=\color[rgb]{0.133,0.545,0.133},
+	stringstyle=\color[rgb]{0.8,  0.1,  0.1},
+	morekeywords={part,chapter,subsection,subsubsection,paragraph,subparagraph,tableofcontents,%
+		listoffigures,listoftables,printacronyms,ihead,ohead,clearscrheadings,clearmainofpairofpagestyles,%
+		headmark,pagemark,maketitel,tr,varnothing,renewcommand,usepackage,includegraphics,graphicspath,%
+		acsetup,DeclareAcroListStyle,DeclareAcronym,ac,Ac,definecolor,colorlet,textcolor,colorbox,%
+		rowcolor,addbibresource,autocite,printbibliography,%	
+		nexists,KOMAoptions,PassOptionsToPackage,thesection,thefigure,color,foreignlanguage},
+	literate={ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"u}}1 {ß}{{\ss}}1 {ô}{{\^o}}1	
+}}{}
+
+
+\sloppy
+
+% DOCUMENT_BEGIN ===============================================================
+\begin{document}
+
+% Split into 4 columns ===========================================================
+\begin{multicols}{4}
+
+\parbox{\columnwidth}{
+\centering\Large\color{violet}LINUX COMMANDS CHEAT SHEET\\[2pt]
+}
+
+
+% SECTION ====================================================================================
+\section{Linux Basics}
+% ============================================================================================
+\sectionbox{
+	\subsection{Command Help}\label{sec:commandhelp}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{time command}  &  how long takes a command\\
+		\texttt{man ascii}  &  get help manual of program\\
+		\texttt{man -t ascii | ps2pdf - > ascii.pdf}  &  make a pdf of a manual page\\
+		\texttt{help for}  &  shows help for for\\
+		\texttt{help return}  &  shows help for return\\
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{Command Lists}\label{sec:commandlists}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{cmd1 ; cmd2}  &  Run cmd1 then cmd2, regardless of success of A\\
+		\texttt{cmd1 \&\& cmd2}  &  Run cmd2 if cmd1 is successful\\
+		\texttt{cmd1 \textbar\textbar cmd2}  &  Run cmd2 if cmd1 is not successful\\
+		\texttt{cmd \&}  &  Run cmd in a subshell/background\\
+		\texttt{/}  &  at end of line: command continue next line\\
+		\texttt{\textbar}  &  connect input\&output of 2 commands (pipe)\\
+		\texttt{\$}  &  marks variable name\\
+		\bottomrule
+		%		\texttt{}  &  \\
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{IO Redire­ction}\label{sec:redirection}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{cmd < file}  &  Input of cmd from file\\
+		\texttt{cmd1 <(cmd2)}  &  Output of cmd2 as file input to cmd1\\
+		\texttt{cmd > file}  &  Standard output (stdout) of cmd to file\\
+		\texttt{cmd > /dev/null}  &  Discard stdout of cmd\\
+		\texttt{cmd >{}> file}  &  Append stdout to file\\
+		\texttt{cmd 2> file}  &  Error output (stderr) of cmd to file\\
+		\texttt{cmd 1>\&2}  &  stdout to same place as stderr\\
+		\texttt{cmd 2>\&1}  &  stderr to same place as stdout \\
+		\texttt{cmd \&> file}  &  Every output of cmd to file\\
+		\texttt{program 2>\&1 /dev/null}  &  silent your program\\
+		\bottomrule
+	\end{tabular}\\
+redirect output to same file with sponge\\
+\begin{lstlisting}[language=bash]
+grep -v 'word' file | sponge file
+\end{lstlisting}
+}
+
+\sectionbox{
+	\subsection{Navigate Directorys}\label{sec:directory}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{cd /xx/yy}  &  change directory\\
+		\texttt{cd \textasciitilde}  &  go to home directory\\
+		\texttt{cd -}  &  go to the previous directory\\
+		\texttt{cd..}  &  go one directory up\\
+		\texttt{cd ./next}  &  go into next folder\\
+		\texttt{cd ../Documents}  &  one dir up into Documents\\
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{File\&Dir Operations Basic}\label{sec:filediroperationsbasic}
+	\begin{tabular}{@{}ll@{}}\toprule
+%		\texttt{}  &  \\ \midrule
+		\texttt{pwd}  &  print working dir\\
+		\texttt{touch file}  &  Create file\\
+		\texttt{file file}  &  Get type of file\\
+		\texttt{cp file file1}  &  Copy file to file1\\
+		\texttt{rm file}  &  Delete file\\
+		\texttt{cp -r /path/src/* /path/dst/}  &  Copy folder\\
+		\texttt{mv file file1}  &  Move file to file1\\
+		\texttt{mkdir}  &  make a directory\\
+		\texttt{mkdir ‐p /path/make}  &  make a folder structure\\
+		\texttt{rmdir}  &  remove a directory\\
+		\texttt{rm -rf /path/file/}  &  remove folder\\
+		\texttt{rm -r ./*}  &  clear folder from inside\\
+		\texttt{cat path/to/file}  &  prints file to terminal\\
+		\texttt{cat file file1}  &  merge output of files\\
+		\texttt{less file}  &  View and paginate file\\
+		\texttt{head file}  &  Show first 10 lines of file\\
+		\texttt{head -n 3 file}  &  Show first 3 lines of file\\
+		\texttt{tail file}  &  Show last 10 lines of file\\
+		\texttt{tail -F file}  &  Output last lines of file as it changes\\
+		\texttt{ls -la}  &  list all files directory,also hidden\\
+		\texttt{cat -n file}  &  show linenumber infront of a file\\
+		\texttt{chmod +x script.sh}  &  make a file executeable\\
+			\bottomrule
+		%		\texttt{}  &  \\
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsubsection{File\&Dir Operations Advanced}\label{sec:filediroperationsadvanced}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{touch a\$(date +"\%Y\_\%m\_\%d\_\%I\_\%M\_\%S")b}  &  timestamp in name\\
+		\texttt{echo \textquotesingle new line\textquotesingle{} >{}> /path/file}  &  add line at end of file\\
+		\texttt{diff file1.txt file2.txt}  &  difference between files\\
+		\texttt{sed \textquotesingle s/str1/str2/g\textquotesingle}  &  Replace str1 with str2\\
+		\texttt{sed '14,17 s/A/B/'}  &  replace A with B line 14-17\\
+		\texttt{sed -i 's/str/str\textbackslash nl1\textbackslash nl2/g' file}  &  insert lines after str\\
+		\texttt{sed -i '/str/i\textbackslash l1\textbackslash nl2\textbackslash n' file}  &  insert lines before str\\
+		\texttt{sed \textquotesingle/\^{}\#/ d\textquotesingle{} file | sed \textquotesingle/\^{}\textbackslash s*\$/d\textquotesingle}  &  del lines begin \# or empty\\
+		\texttt{sed \textquotesingle 1d\textquotesingle}  &  Delete first line\\
+		\texttt{sed \textquotesingle/\^{}\#/d\textquotesingle}  &  Delete lines start with \#\\
+		\texttt{sed \textquotesingle /\^{} *\#/d; /\^{} *\$/d\textquotesingle}  &  rm comment\&blank line\\
+		\texttt{sed -i \textquotesingle/\^{}str/d\textquotesingle{} file}  &  remove lines start with str\\
+		\texttt{sort file.txt}  &  sort lines of files.txt\\
+		\texttt{sort -u -o file file}  &  sort\&remove duplicates\\
+		\texttt{sort -k2 test.txt}  &  sort csv lines\\
+		\texttt{ln -s /path/src.z /dst/src.z}  &  create a symbolic link\\	
+		\texttt{ls -l | grep "\textbackslash.txt"}  &  lists only txt files\\
+		\texttt{ls -lt --time=atime *.txt}  &  list txt files by time\\
+		\texttt{ls -lh filename}  &  properties human readable\\
+		\texttt{md5sum}  &  compute and check md5\\
+		\texttt{sha1sum  filename}  &  proof a sha1sum of file\\
+		\texttt{sha256sum filename}  &  proof a sha256sum of file\\
+		\texttt{du -sh ./*}  &  size of folder\\
+		\texttt{wc test.txt}  &  count words and letters\\
+		\texttt{sudo rm -r /path/to/dir/*}  &  remove all files and folders\\
+		\texttt{file -{}-mime-type -b filename}  &  get the mime type of a file\\
+%		\texttt{echo 'Tst'|tr '[:lower:]' '[:upper:]'}  &  Case conversion\\
+		\texttt{rename \textquotesingle s/ //\textquotesingle{} *.JPG}  &  strip spaces from filenames\\	
+		\texttt{rename \textquotesingle s/\textbackslash.xml\$/.txt/\textquotesingle{}  *xml}  &  rename all .xml files to .txt\\
+		\texttt{rename \textquotesingle y/A-Z/a-z/\textquotesingle ./*}  &  rename all to small letters\\	
+		\texttt{mount -o loop file.iso \textasciitilde/mnt2/}  &  mount iso images\\
+		\texttt{losetup -f -{}-show raspbian.img}  &  mount image to loop\\
+		\texttt{losetup -d /dev/loop0 /dev/loop1}  &  unmount image from loop\\
+		\texttt{grep "\^{}foo.*bar\$" file}  &  print lines begin foo end bar\\
+		\texttt{sudo chown -R pi:pi /path/file}  &  owner\&group to you\\
+		\texttt{sudo chmod -R 777 ./*}  &  give cur folder all rights\\
+		\texttt{sudo chmod 777 file}  &  all rights to file\\
+		\texttt{chown pi /path/file}  &  change owner to pi\\
+		\texttt{chown pi:pi /path/file}  &  add group pi\\
+		\texttt{echo b-date.e.png |cut -d\textbackslash. -f1}  &  Cut to b-date\\
+		\texttt{shred -n 3 -z -u -v /path/file}  &  delete files safe\\
+		\bottomrule
+	\end{tabular}\\
+	write image to sdcard\\
+\begin{lstlisting}[language=bash]
+sudo dd if=raspbian-jessie-lite.img of=/dev/sdb status=progress
+\end{lstlisting}
+	Empty Trash\\
+	\begin{lstlisting}[language=bash]
+cd ~/.local/share/Trash/info/ && rm -rf *
+cd ~/.local/share/Trash/files/ && rm -rf *
+	\end{lstlisting}
+	spaces to underscores in filename: \texttt{rename \textquotesingle y/ /\_/\textquotesingle{} *}\\
+	\begin{tabular}{@{}ll@{}}\toprule
+\texttt{find -name "* *" -type d \textbackslash rename \textquotesingle s/ /\_/g\textquotesingle} & recursive for dirs\\
+\texttt{find -name "* *" -type f \textbackslash rename \textquotesingle s/ /\_/g\textquotesingle} & recursive for files\\
+		\bottomrule
+	\end{tabular}
+		replace all fo with ba in all c documents \\
+\begin{lstlisting}[language=bash]
+find . -type f -name "*.c" -print0 | \
+xargs -0 sed -i '' -e 's/fo/ba/g'
+\end{lstlisting}
+		write a long text in terminal to file \\
+\begin{lstlisting}[language=bash]
+cat << EOF | tee /path/file
+hello 
+world.
+EOF
+\end{lstlisting}
+}\\
+\attachfile[mimetype=application/x-sh,description=get pngs-from-subdir.sh,icon=Tag,author=none,subject=testsub]{pngs-from-subdir.sh} {pngs-from-subdir.sh}
+\attachfile[mimetype=application/x-sh,description=get pngs-from-url.sh,icon=Tag,author=none,subject=testsub]{pngs-from-url.sh} {pngs-from-url.sh}
+\sectionbox{
+	\subsubsection{Files /Archives \& Compression}\label{sec:archivescompression}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{gpg -c file}  &  Encrypt file\\
+		\texttt{gpg file.gpg}  &  Decrypt file\\
+		\texttt{unzip -l files.zip}  &  list files from a zip\\
+		\texttt{unzip -j "zip-archive.zip" "one\_file.txt}  &  unzip specific file\\
+		\bottomrule
+	\end{tabular}\\
+}
+
+\sectionbox{
+	\subsubsection{Files /Archives \& Compression2}\label{sec:archivescompression2}
+	unzip a tar.gz file without saving it first\\
+	\begin{lstlisting}[language=bash]
+wget -qO - example.com/path/to/blah.tar.gz | tar xzf -
+	\end{lstlisting}
+	pack a password protected zip file\\
+	\begin{lstlisting}[language=bash]
+zip --password MY_SECRET secure.zip doc.pdf doc2.pdf doc3.pdf
+zip --password MY_SECRET secure.zip *
+	\end{lstlisting}
+	protected zip file in gui:\\
+	\begin{lstlisting}[language=bash]
+rightclick file/folder >create archive >zip >other options >passwrd
+	\end{lstlisting}
+	
+}
+
+\sectionbox{
+	\subsubsection{Files /Transfer Files}\label{sec:transferfiles}
+	get file over ssh\\
+	\begin{lstlisting}[language=bash]
+scp pi@192.168.x.x:/home/pi/file /home/$USER/Desktop/file
+	\end{lstlisting}
+	
+	download a file from rpi to linux\\
+	\begin{lstlisting}[language=bash]
+sudo apt install openssh-server
+sudo apt install fail2ban
+sudo apt install ufw gufw #then enable port 22 in gufw
+sftp://user@192.168.1.xx/home/user
+sftp -P 22 pi@192.168.1.xx
+get remote-path [local-path]
+	\end{lstlisting}
+	
+	upload a file from rpi to linux\\
+	\begin{lstlisting}[language=bash]
+sftp -P 22 pi@192.168.1.xx
+put local-path [remote-path]
+	\end{lstlisting}
+	
+	connect over sftp in thunar by pasting this address\\
+	\begin{lstlisting}[language=bash]
+sftp://pi@192.168.1.100/home/Username
+	\end{lstlisting}
+	
+	connect over ftp in firefox  by pasting this address\\
+	\begin{lstlisting}[language=bash]
+ftp://192.168.1.100:12345
+	\end{lstlisting}
+	
+	download a website\\
+	\begin{lstlisting}[language=bash]
+wget --random-wait -r -p -e robots=off -U mozilla http://www.xy.ru
+wget -r -A png http://www.xy.ru #get pngs from site
+	\end{lstlisting}
+	
+	create an iso image from cd\\
+	\begin{lstlisting}[language=bash]
+readom dev=/dev/scd0 f=/path/to/image.iso
+	\end{lstlisting}	
+}
+
+\sectionbox{
+	\subsection{Terminal}\label{sec:terminal}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{ctrl+c}  &  stop running process in console\\
+		\texttt{Ctrl + Shift + V}  &  clipboard to terminal\\
+		\texttt{Ctrl + Shift + C}  &  copy text from terminal\\
+		\texttt{Ctrl + Alt + select it}  &  select rectangle in terminal\\
+		\texttt{Ctrl + D or exit}  &  exit terminal / ssh session\\
+		\texttt{Ctrl + Click link}  &  open link in lxterminal\\
+		\texttt{tab-key}  &  autocomplete folder\&filename\\
+		\texttt{arrow-up/down}  &  see last terminal command\\
+		\texttt{clear}  &  clear the terminal\\
+		\texttt{reset}  &  clear\&reset screen\\
+		\texttt{ssh pi@IP -p 22 "uptime"}  &  login and run command\\
+		\texttt{sshpass -p \textquotesingle rasp\textquotesingle ssh pi@IP}  &  ssh login with password\\
+		\texttt{ssh pi@192.168.1.xx -p 22}  &  connect to pi over terminal\\
+		\texttt{sudo !!}  &  execute previous command with sudo\\
+		\texttt{!!}  &  run same command again\\
+		\texttt{!abc:p}  &  print last command starting with abc\\
+		\texttt{!foo}  &  run last command beginning with foo\\
+		\texttt{pkexec cmd}  &  run cmd as superuser\\	
+		\texttt{nano \textasciitilde/.bash\_history}  &  edit your history\\	
+		\texttt{history}  &  terminal history with linenumbers\\
+		\texttt{history -c}  &  clear history\\
+		\texttt{history -d linenumber}  &  to delete that line\\
+		\texttt{cat \textasciitilde/.selected\_editor}  &  show active editor\\
+		\texttt{select-editor}  &  change users editor\\
+		%\texttt{echo \textquotesingle export PS1="\textbackslash W \textbackslash \$"\textquotesingle{} >{}> \textasciitilde/.bashrc}  &  \\
+		\bottomrule
+	\end{tabular}\\
+	hide pc \& user in terminal\\
+	\begin{lstlisting}[language=bash]
+echo 'export PS1="\W \$"' >> ~/.bashrc
+	\end{lstlisting}
+}
+
+\sectionbox{
+	\subsection{For Loop}\label{sec:forloop}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{for ((a=1; a <= 3; a++));do echo \$a; done}  &  for loop\\
+		\texttt{for a in \{1..3\}; do echo "\$a"; done}  &  for loop\\
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{Usage Nano}\label{sec:bashvariables}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{ESC + A}  &  start mark text at cursor\\
+		\texttt{ctrl + F}  &  forward one character\\
+		\texttt{ctrl + Space}  &  forward one word\\
+		\texttt{Page Up or Page Down}  &  next/prev page\\
+		\texttt{Ctrl + K}  &  cut marked/infront of line: cut line\\
+		\texttt{Ctrl + O}  &  save without exit\\
+		\texttt{Alt + W}  &  search again\\
+		\texttt{Ctrl + G}  &  nano help\\
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{Bash Variables}\label{sec:bashvariables}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{env}  &  Show enviro­nment variables\\
+		\texttt{echo \$NAME}  &  Output value of \$NAME variable\\
+		\texttt{export NAME=value}  &  Set \$NAME to value\\
+		\texttt{\$PATH}  &  Executable search path\\
+		\texttt{\$HOME}  &  Home directory\\
+		\texttt{\$SHELL}  & Current shell \\
+		\texttt{\$USER}  &  current user\\ 
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{Usage Firewall}\label{sec:firewall}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{sudo ufw deny from IP.0/24}  &  block traffic from IP\\
+		\texttt{sudo ufw deny out from any to IP.0/24}  &  block traffic to IP\\
+		\texttt{sudo ufw reload}  &  reload ufw\\
+		\texttt{sudo ufw status}  &  check ufw status\\
+		\texttt{sudo ufw enable}  &  enable ufw\\
+		\texttt{sudo ufw show added}  &  show added rules\\
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{Process Management}\label{sec:processmanagement}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{xfce4-taskmanager}  &  gui kill \& stop tasks\\
+		\texttt{ps}  &  Show snapshot of processes\\
+		\texttt{top}  &  Show real time processes\\
+		\texttt{pstree}  &  show process tree\\
+		\texttt{xkill}  &  then click on window to kill\\
+		\texttt{alt+f2 write "xkill"}  &  same as above\\
+		\texttt{ps aux | grep sample}  &  get process ide from sample\\
+		\texttt{kill pid}  &  Kill process with id pid\\
+		\texttt{pkill sample}  &   Kill process with name sample\\
+		\texttt{killall sample}  &  Kill all processes with names begin sample\\
+		\bottomrule
+	\end{tabular}\\
+kill a process if pc is stuck\\
+\begin{lstlisting}[language=bash]
+Ctrl + Alt + F2
+youruser yourpassword  #login
+su
+top #lists all process (mostly highest cpu useage cause probs)
+k
+enter
+enter
+q #to quit top
+pkill pname #kills all process that start with pname
+Ctrl + Alt + F7  #back to normal screen
+\end{lstlisting}
+kill program from htop\\
+\begin{lstlisting}[language=bash]
+choose program you want to stop with with arrow up & down
+press f9 to kill it
+confirm killing with enter
+\end{lstlisting}
+run bash file\\
+\begin{lstlisting}[language=bash]
+sudo bash -x /etc/init.d/c start
+sudo bash -x /etc/init.d/c status
+\end{lstlisting}
+}
+
+\sectionbox{
+	\subsection{System}\label{sec:system}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{sudo shutdown -P +30}  &  shutdown in 30 min\\
+		\texttt{sudo shutdown -c}  &  quit shutdown process\\
+		\texttt{sudo shutdown -h 0}  &  shutdown\\
+		\texttt{sudo halt}  &  halt\\
+		\texttt{sudo shutdown -r now}  &  reboot\\
+		\texttt{sudo reboot}  &  reboot\\
+		\texttt{crontab -l}  &  list crontab\\
+		\texttt{crontab -e}  &  edit crontab\\
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{About System}\label{sec:aboutsystem}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{saidar -c}  &  leightweight system stats in color\\
+		\texttt{screenfetch}  &  get info about system\\
+		\texttt{uptime}  &  how long is the pc up\\
+		\texttt{last reboot}  &  show last reboot\\
+		\texttt{last shutdown}  &  show last shutdown\\
+		\texttt{df -h}  &  show useable free space\\
+		\texttt{free}  &  show free ram\\
+		\texttt{dmesg}  &  new devices \& more\\
+		\texttt{dmesg -{}-follow -{}-human}  &  show live dmesg output\\
+		\texttt{cat /proc/cpuinfo}  &  lot info about cpu\\
+		\texttt{lscpu}  &  Detailed CPU info\\
+		\texttt{lsblk}  &  show partition table\\
+		\texttt{uname -r}  &  kernel version number\\
+		\texttt{uname -m}  &  shows your bit version\\
+		\texttt{uname -a}  &  linux kernel all\\
+		\texttt{cat /etc/os-release}  &  lot info about linux version\\
+		\texttt{more /etc/issue}  &  what system do you use\\
+		\texttt{cat /etc/*issue}  &  what build image do you use\\
+		\texttt{lsb\_release -a}  &  get linux version\\
+		\texttt{acpi -i}  &  battery\\
+		\texttt{sudo powertop}  &  battery\\
+		\texttt{acpi -t}  &  cpu temperature\\
+		\texttt{acpi -V}  &  high temp, critical temp\\
+		\texttt{nvidia-smi -l}  &  list about nvidia card\\
+		\texttt{ls /usr/share/applications/*}  &  list global programs\\
+		\texttt{ls /home/\$USER/.local/share/appli*/*}  &  list local programs\\
+		\texttt{ls /etc/xdg/autostart/*}  &  list autostarted programs\\
+		\texttt{cat /etc/passwd}  &   id over 1000 manually done\\
+		\texttt{sudo blkid}  &  get partition uuids\\
+		\texttt{python -V}  &  get python version\\
+		\texttt{xmodmap -pke}  &  read keymap\\
+		\bottomrule
+	\end{tabular}
+}
+\sectionbox{
+	\subsection{Install}\label{sec:install}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{sudo apt update \&\& sudo apt upgrade}  &  update,upgrade\\
+		\texttt{sudo apt clean}  &  clean that files\\
+		\texttt{sudo dpkg -i file.deb}  &  install a deb file\\
+		\texttt{sudo apt install -f}  &  fix a broken deb install\\
+		\texttt{sudo apt purge pname}  &  purge paket include conf files\\
+		\texttt{sudo apt-get remove pname}  &  remove programs\\
+		\texttt{sudo unattended-upgrades -{}-dry-run}  &  dryrun unattended upgrades\\
+		\texttt{sudo apt install -{}-reinstall name}  &  reinstall a program\\
+		\texttt{dpkg --info file.deb}  &  info about a package\\
+		\texttt{ls /etc/apt/sources.list.d/}  &  check manually added repos\\
+		\texttt{apt-cache showpkg packagename}  &  show dependencies\\
+		\texttt{dpkg -l packagename}  &  is package installed\\
+		\texttt{dpkg -l | grep \^{}i}  &  list installed packages\\
+		\texttt{nano /etc/apt/sources.list}  &  check source list\\
+		\texttt{ls /var/cache/apt/archives}  &   all downloaded .deb files\\
+		\texttt{sudo apt-get dist-upgrade}  &  mostly trouble, do not use\\
+		\texttt{dpkg -{}-list |grep linux-image}  &  to list all images\\
+		\texttt{sudo apt-cache search pname}  &  shows also the version\\
+		\bottomrule
+	\end{tabular}\\
+}
+
+\sectionbox{
+	\subsubsection{Install /update \& upgrade \& autoremove \& clean old packages}\label{sec:upgrade}
+	\begin{lstlisting}[language=bash]
+sudo apt-get -qq update && \
+sudo apt-get -qq -y upgrade && \
+sudo apt-get -qq -y clean && \
+sudo apt-get -qq -y autoclean && \
+sudo apt-get -qq autoremove
+	\end{lstlisting}
+}
+
+\sectionbox{
+	\subsubsection{Install /Program Autostart}\label{sec:programautostart}
+	\begin{lstlisting}[language=bash]
+sudo cp /usr/share/applications/firefox.desktop /etc/xdg/autostart/
+sudo crontab -u $USER -e  #or edit crontab to do it
+	\end{lstlisting}
+}
+
+\sectionbox{
+	\subsubsection{Install Advanced}\label{sec:install2}
+	upgrade only a special package\\
+\begin{lstlisting}[language=bash]
+sudo apt-get install --only-upgrade pname
+\end{lstlisting}
+	delete an old image\\
+\begin{lstlisting}[language=bash]
+sudo apt-get purge linux-image-3.19.0-15-generic
+\end{lstlisting}
+	search for files inside not-installed packages\\
+\begin{lstlisting}[language=bash]
+sudo apt-get install apt-file  #install apt-file
+apt-file update # update apt-file
+apt-file search packagename #search it
+apt-file list packagename
+sudo apt-cache search packagename #shows also version
+\end{lstlisting}
+	install :i386 package in 64 bit\\
+\begin{lstlisting}[language=bash]
+sudo dpkg --add-architecture i386 && sudo apt update
+sudo apt install package
+\end{lstlisting}
+	remove i386 architecture\\
+\begin{lstlisting}[language=bash]
+sudo apt-get purge ".*:i386"
+sudo dpkg --remove-architecture i386
+sudo apt-get update
+\end{lstlisting}
+	add a keyserver\\
+\begin{lstlisting}[language=bash]
+sudo apt-key adv --keyserver PGP_KEY_SERVER --recv-keys ID
+\end{lstlisting}
+	remove a keyserver\\
+\begin{lstlisting}[language=bash]
+sudo apt-key list
+sudo apt-key del D3D831EF
+sudo rm /etc/apt/sources.list.d/mono-xamarin.list
+\end{lstlisting}
+	convert a rpm package into deb\\
+\begin{lstlisting}[language=bash]
+sudo apt install alien
+sudo alien -ci packagename.rpm
+alien --to-deb /path/to/file.rpm
+\end{lstlisting}
+	fix dependencies problems\\
+\begin{lstlisting}[language=bash]
+apt-cache rdepends pkgecausedprobs
+sudo apt purge -y ...
+sudo apt-get autoclean &&\
+sudo apt-get clean &&\
+sudo apt-get autoremove
+\end{lstlisting}
+}
+
+\sectionbox{
+	\subsection{Monitoring \& Debugging Network}\label{sec:monitoringdebuggingnetwork}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{hostname -I}  &  show the ip\\
+		\texttt{vnstat}  &  network traffic\\
+		\texttt{bmon}  &  network monitor\\
+		\texttt{sudo linssid}  &  gui to scan nearby networks\\
+		\texttt{ifconfig -a}  &  network information\\
+		\texttt{iwconfig}  &  wlan info\\
+		\texttt{sudo rfkill block wifi}  &  block wifi\\
+		\texttt{sudo rfkill unblock wifi}  &   reactivate the module again\\
+		\texttt{iwlist scanning}  &  scan networks\\
+		\texttt{ip link show}  &  interfaces info\\
+		\texttt{sudo lastb}  &  check failed logins\\
+		\texttt{lsof -p \$\$}  &  List paths that process id has open\\
+		\texttt{lsof \textasciitilde}  &  List processes with specified path open\\
+		\texttt{lsof -i}  &  show network activity\\
+		\texttt{watch -n 1 \textquotesingle lsof -i\textquotesingle}  &  run lsof every sec.\\
+		\texttt{sudo netstat -anp -{}-inet}  &  List TCP/UDP ports\&IP use by process\\
+		\texttt{sudo netstat -ap -{}-inet}  &  as above but with Address\\
+		\texttt{nethogs}  &  groups bandwidth by process\\
+		\texttt{tcpdump not port 22}  &  Show network traffic except ssh.\\
+		\texttt{etherape}  &  connections/traffic\\
+		\texttt{sudo iptraf}  &  iptraffic\\
+		\texttt{sudo iftop -i wlan0}  &  iptraffic\\
+		\texttt{ip.addr == 192.168.1.100}  &  wireshark traffic for ip\\
+		\texttt{noping example.com eg.com}  &  ping more websites\\
+		\texttt{ping -i 60 -a IP\textbackslash address}  &  ping ip every 60 sec and beep if there\\
+		\texttt{whois example.com}  &  info for domain\\
+		\texttt{dig example.com}  &  dns info for domain\\
+		\texttt{host example.com}  &  Lookup DNS ip\\
+			\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{Monitoring \& Debugging Files}\label{sec:monitoringdebugging}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{w}  &  who is logged in and how long\\
+		\texttt{grep CRON /var/log/syslog}  &  cron logs\\
+		\texttt{tail -f /var/log/msg}  &  Monitor messages in a log file\\
+		\texttt{\textasciitilde/.local}  &  check local files\\
+		\texttt{\textasciitilde/.cache}  &  check cache files\\
+		\texttt{cat /var/log/syslog | more}  &  view syslog\\
+		\texttt{sudo less /var/log/syslog}  &  read syslog\\
+		\texttt{sudo zless /var/log/syslog.2.gz}  &  read archived logs\\
+		\texttt{sudo tail -f -n 0 /var/log/syslog}  &  read while changing\\
+		\texttt{sudo rm -r /var/log/*}  &  clean all logs\\
+		\texttt{zeitgeist-explorer}  &  inspect public logs\\
+		\texttt{exiftool -a -G1 file.pdf}  &  get info about pdf\\
+		\bottomrule
+	\end{tabular}\\
+	open in sqlite  browser go to data and check text and url\\
+	\begin{lstlisting}[language=bash]
+~/.local/share/zeitgeist/activity.sqlite
+	\end{lstlisting}
+	recently used files\\
+	\begin{lstlisting}[language=bash]
+~/.local/share/recently-used.xbel
+	\end{lstlisting}
+	get all string values from your ram\\
+	\begin{lstlisting}[language=bash]
+sudo dd if=/dev/mem | cat | strings
+	\end{lstlisting}
+}
+
+\sectionbox{
+	\subsection{File Searching}\label{sec:filesearching}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{which nano}  &  find location of binary\\
+		\texttt{find / -name "Keyword*"}  &  search all beginning with Keyword\\
+		\texttt{find / -iname "*keyword*"}  &  ignore case\&word can be in middle\\
+		\texttt{find . -type d -name \textquotesingle*str*\textquotesingle}  &  search for directory with str\\
+		\texttt{ls *.txt}  &  find txt files in dir\\
+		\texttt{grep str /path/file}  &  search for str in file\\
+		\texttt{grep -rni \$PWD -e pattern}  &  search pattern in files in cur dir\\
+		\bottomrule
+	\end{tabular}
+	search for https addresses in file\\
+	but missing '\%[] so url with it will be cut there\\
+	%	\texttt{\colorbox{gray!25}{grep -o 'https://[a-zA-Z0-9.,\textbackslash/.\_\textasciitilde:?\#!\$@!\$\&()*\%+,;=-]*' file}}
+	\begin{lstlisting}[language=bash]
+grep -o 'https://[a-zA-Z0-9.,\/._~:?#@!$&()*%+,;=-]*' file
+	\end{lstlisting}
+	search in a pdf file\\
+	\begin{lstlisting}[language=bash]
+pdftotext file-name.pdf && cat file-name.txt | grep 'Search-string'
+	\end{lstlisting}
+}
+
+\sectionbox{
+	\subsection{Users \& Groups}\label{sec:usersgroupss}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{passwd -S}  &  info last time password was set\\
+		\texttt{passwd}  &  change password\\
+		\texttt{users}  &  list all users\\
+		\texttt{groups}  &  list all groups\\
+		\texttt{sudo -s}  &  run following code as admin\\
+		\texttt{sudo su -l}  &  login as superuser\\
+		\texttt{sudo -i}  &  change to root user\\
+		\texttt{cut -d: -f1 /etc/passwd}  &  list all users\\
+		\texttt{sudo userdel username}  &  rm  user\\
+		\texttt{sudo adduser username}  &  create/add a new user\\
+		\texttt{sudo su username}  &  switch to user\\
+		\texttt{adduser username sudo}  &  add username to sudoers group\\
+		\texttt{grep pi /etc/group}  &  shows all groups of pi\\
+		\bottomrule
+	\end{tabular}\\
+		add a user to groups\\
+	\begin{lstlisting}[language=bash]
+sudo usermod -a -G group1,group2 testuser
+	\end{lstlisting}
+
+		remove a user from all groups\\
+	\begin{lstlisting}[language=bash]
+sudo usermod -G "" testuser
+	\end{lstlisting}
+
+		remove a user\\
+	\begin{lstlisting}[language=bash]
+sudo passwd -l username #lock useraccount
+sudo userdel -r -f username #home, mail, other users files
+sudo crontab -r -u username #remove crontab
+	\end{lstlisting}
+}
+
+\sectionbox{
+	\subsection{Hacks}\label{sec:hacks}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		%		\texttt{sudo grep -rni /etc/NetworkM*/sys*/* -e psk=}  &  get wlan passwords\\
+		\texttt{uuidgen}  &  generate random uuid\\
+		\texttt{rm -rf /}  &  remove all the programs,everything,destroys your system\\
+		\texttt{lynx -dump -listonly https://goo.gl/}  &  get all links from site\\
+		\bottomrule
+	\end{tabular}\\
+	ascii clock\\
+	\begin{lstlisting}[language=bash]
+	watch -n 1 'echo "obase=2;`date +%s`" | bc'\end{lstlisting} 
+}
+
+\sectionbox{
+	\subsection{Simple Math}\label{sec:maths}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{echo \$(( 10 + 5 ))}  &  calculate in bash\\
+		\texttt{calc 1+1}  &  says the ans\\
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{Usage Rsync}\label{sec:rsync}
+	dryrun rsync for \lstinline+testing+.\\
+	\begin{mylatex}
+rsync -rtuv links --dry-run /path/to/src/* /path/to/dest/
+	\end{mylatex}
+	run rsync\\
+	\begin{mylatex}
+rsync -rtuv --links /path/to/src/* /path/to/dest/
+	\end{mylatex}
+}
+
+\sectionbox{
+	\subsection{Install with pip}\label{sec:installx}
+	\begin{tabular}{@{}ll@{}}\toprule	
+		\texttt{sudo pip install pname}  &  install a pip package\\
+		\texttt{sudo pip install -{}-upgrade pname}  &  upgrade a package\\
+		\texttt{sudo pip uninstall pname}  &  remove a package\\
+		\bottomrule
+	\end{tabular}
+}	
+
+\sectionbox{
+	\subsection{Usage Tmux}\label{sec:tmux}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{tmux new -s myname}  &  start new with session myname\\
+		\texttt{tmux a \#or at, or attach}  &  attach a session\\
+		\texttt{tmux a -t myname}  &  attach to myname\\
+		\texttt{tmux ls}  &  list sessions\\
+		\texttt{Ctrl + B then d}  &  detach session\\
+		
+		\texttt{Ctrl + D or write: exit}  &  exit window\\
+		\texttt{Ctrl + B then write :kill-session}  &  kill session\\
+		\texttt{tmux kill-session -t Sessionx}  &  kill sessionx\\
+		\texttt{Ctrl + B + \%}  &  tmux split screen horizontally\\
+		\texttt{CTRL + B + "}  &  split screen vertically\\
+		\texttt{Ctrl + B + Z}  &  panel full screen; shrink back\\
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{Usage Calendar}\label{sec:calendar}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{cal}  &  displays current month\\ 
+		\texttt{cal -3}  &  prev/act/next month\\
+		\texttt{cal -m 4}  &  shows 4 month of the year\\
+		\texttt{cal -y 2018}  &  shows the whole year\\
+		\texttt{cal 9 1752}  &  Display a calendar for a month year\\
+		\texttt{date -d fri}  &  What date is it this friday. See also day\\
+		\texttt{date -{}-date='25 Dec' +\%A}  &  What day does xmas fall on, this year\\
+		\texttt{calendar}  &  what happend today in history\\
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{Usage Systemd}\label{sec:calendar}
+	\begin{tabular}{@{}ll@{}}\toprule
+		%		\texttt{}  &  \\ \midrule
+		\texttt{systemd -{}-version}  &  systemd version\\
+		\texttt{systemd-analyze}  &  how long to boot kernel and system\\
+		\texttt{systemd-analyze blame}  & to check each process\\
+		\texttt{systemctl list-unit-files}  &  list all services ,static = dependency\\
+		\texttt{systemctl list-units}  &  list only running services\\
+		\bottomrule
+	\end{tabular}
+}
+
+\sectionbox{
+	\subsection{Usage Mysql}\label{sec:calendar}
+	delete database and user\\
+\begin{lstlisting}[language=bash]
+mysql -u root -p
+DROP DATABASE databasename_to_delete;
+DROP USER 'databaseuser_to_delete'@'localhost';
+\end{lstlisting}
+	exit\\
+\begin{lstlisting}[language=bash]
+quit
+\end{lstlisting}
+	check mysql table\\
+\begin{lstlisting}[language=bash]
+mysqlcheck -c  -u root -p --all-databases
+\end{lstlisting}
+	autorepair tables\\
+\begin{lstlisting}[language=bash]
+mysqlcheck -u root -p --auto-repair --all-databases
+\end{lstlisting}
+	optimize tables\\
+\begin{lstlisting}[language=bash]
+mysqlcheck -o -u root -p --all-databases
+\end{lstlisting}
+}
+
+\sectionbox{
+	\begin{itemize}
+		\item 
+		This document is licensed \href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND}\\
+	\end{itemize}
+}
+
+\begin{comment}
+\sectionbox{
+	\subsection{TEST}\label{sec:test}
+	\begin{tabular}{@{}ll@{}}\toprule
+%		\texttt{}  &  \\ \midrule
+		\texttt{}  &  \\
+		\texttt{}  &  \\
+		\texttt{}  &  \\
+		\texttt{}  &  \\
+			\bottomrule
+	\end{tabular}
+}
+\end{comment}
+
+\end{multicols}
+
+% DOCUMENT_END======================================================================
+\end{document}
